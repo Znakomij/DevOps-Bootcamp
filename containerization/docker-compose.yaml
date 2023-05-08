@@ -1,0 +1,25 @@
+version: '3'
+services:
+  redis:
+    image: redis
+    restart: always
+    networks:
+      - main
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: test-app:0.1
+    container_name: testing-app
+    restart: always
+    ports:
+      - "80:5000"
+    networks:
+      - main
+    depends_on:
+      - redis
+
+networks:
+  main:
+
